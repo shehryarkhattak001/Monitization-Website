@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text-Fields</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        .container-head {
+            background-color: #b1f1dc;
+            width: 50%;
+            margin: auto;
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        
+        input[type="text"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        input[type="email"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        input[type="username"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        input[type="password"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .heading {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #9bc56b;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .vpn {
+            margin: 0.5rem 0 0 0;
+        }
+        
+        .new-line {
+            margin-top: 40px;
+            border: 1px solid black;
+        }
+        
+        .container-footer {
+            margin: 1rem 0 0.5rem 0;
+            margin-left: 20px;
+        }
+        
+        .lineWidth {
+            border: 1px solid black;
+        }
+        
+        .img-style {
+            height: 100px;
+            width: 100px;
+            float: right;
+            margin: 0.5rem;
+        }
+        
+        .spice-btn {
+            clear: both;
+        }
+        
+        .footer-text {
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            input[type="text"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-head">
+        <div class="container">
+            <div class="container1">
+                <div class="input-container"></div>
+            </div>
+            <div class="container2">
+                <div class="input-gmail"></div>
+                <div class="input-password"></div>
+                <div class="vpn">
+                    <div class="vpn-username"></div>
+                    <div class="vpn-password"></div>
+                    <!-- <>Services we provide: </> -->
+                    </p>
+                </div>
+                <div>Services we provide:</div>
+                <div>Fresh and old monetized channels
+                </div>
+                <div>CPM Partnerships
+                </div>
+                <div>Organic and inorganic Watchtime
+                </div>
+                <div>High CPC Videos
+                </div>
+                <div>Non Drop Subscribers
+                </div>
+                <img src="./img.jfif" alt="" class="img-style">
+                <div class="spice-btn">
+                    <button id="clearButton">Clear Text</button>
+                    <button id="saveButton">Save</button>
+                    <button id="exitButton">Exit</button>
+                </div>
+            </div>
+        </div>
+
+
+        <hr class="lineWidth">
+        <div class="footer-text">Contact us on whatsapp : +923174982150 , +923345133912 &ensp; &emsp; &emsp;Scan Qr Code for quick contact</div>
+
+    </div>
+
+    <script>
+        // Number of input fields and buttons
+        const numberOfFields = 10;
+
+        // Get the container element
+        const container = document.querySelector(".input-container");
+
+        // Retrieve data from localStorage or initialize an empty array
+        const storedValues =
+            JSON.parse(localStorage.getItem("inputValues")) ||
+            Array.from({
+                length: numberOfFields
+            }, () => "");
+
+        // State variables to manage input field values
+        const inputValues = storedValues.slice(); // Copy the values from storedValues
+
+        // Create heading for Channel 1
+        const channel1Heading = document.createElement("div");
+        channel1Heading.className = "heading";
+        channel1Heading.innerText = "Channel 1";
+        container.appendChild(channel1Heading);
+
+        // Dynamically create input fields and buttons for Channel 1
+        for (let i = 0; i < 5; i++) {
+            const inputField = document.createElement("input");
+            inputField.type = "text";
+            inputField.placeholder = `Input Field ${i + 1}`;
+            inputField.value = inputValues[i]; // Set the initial value from storedValues
+
+            const copyButton = document.createElement("button");
+            copyButton.innerText = `Copy ${i + 1}`;
+            copyButton.addEventListener("click", function() {
+                // Copy text to clipboard when the button is clicked
+                inputField.select();
+                document.execCommand("copy");
+                alert(`Text "${inputValues[i]}" copied to clipboard!`);
+            });
+
+            // Create a container div for each pair of input field and button
+            const fieldContainer = document.createElement("div");
+            fieldContainer.className = "input-container"; // Add a class for styling
+            fieldContainer.appendChild(inputField);
+            fieldContainer.appendChild(copyButton);
+
+            // Append the container div to the main container
+            container.appendChild(fieldContainer);
+
+            // Update state variable when input field value changes
+            inputField.addEventListener("input", function(event) {
+                inputValues[i] = event.target.value;
+                // Update localStorage when input values change
+                localStorage.setItem("inputValues", JSON.stringify(inputValues));
+            });
+        }
+
+        // Create heading for Channel 2
+        const channel2Heading = document.createElement("div");
+        channel2Heading.className = "heading";
+        channel2Heading.innerText = "Channel 2";
+        container.appendChild(channel2Heading);
+
+        // Dynamically create input fields and buttons for Channel 2
+        for (let i = 5; i < numberOfFields; i++) {
+            const inputField = document.createElement("input");
+            inputField.type = "text";
+            inputField.placeholder = `Input Field ${i + 1}`;
+            inputField.value = inputValues[i]; // Set the initial value from storedValues
+
+            const copyButton = document.createElement("button");
+            copyButton.innerText = `Copy ${i + 1}`;
+            copyButton.addEventListener("click", function() {
+                // Copy text to clipboard when the button is clicked
+                inputField.select();
+                document.execCommand("copy");
+                alert(`Text "${inputValues[i]}" copied to clipboard!`);
+            });
+
+            // Create a container div for each pair of input field and button
+            const fieldContainer = document.createElement("div");
+            fieldContainer.className = "input-container"; // Add a class for styling
+            fieldContainer.appendChild(inputField);
+            fieldContainer.appendChild(copyButton);
+
+            // Append the container div to the main container
+            container.appendChild(fieldContainer);
+
+            // Update state variable when input field value changes
+            inputField.addEventListener("input", function(event) {
+                inputValues[i] = event.target.value;
+                // Update localStorage when input values change
+                localStorage.setItem("inputValues", JSON.stringify(inputValues));
+            });
+        }
+
+        // Add a line break after every 5 fields
+        const lineBreak = document.createElement("br");
+        container.appendChild(lineBreak);
+
+        // Clear button functionality using state
+        const clearButton = document.getElementById("clearButton");
+        clearButton.addEventListener("click", function() {
+            // Clear input field values using state
+            inputValues.fill("");
+            const inputFields = document.querySelectorAll('input[type="text"]');
+            inputFields.forEach((input, index) => {
+                input.value = inputValues[index];
+            });
+            // Update localStorage when input values change
+            localStorage.setItem("inputValues", JSON.stringify(inputValues));
+        });
+
+        const saveButton = document.getElementById("saveButton");
+        saveButton.addEventListener("click", function() {
+            // Save input field values to localStorage
+            localStorage.setItem("inputValues", JSON.stringify(inputValues));
+            alert("Data saved!");
+        });
+
+        // Exit button functionality
+        const exitButton = document.getElementById("exitButton");
+        exitButton.addEventListener("click", function() {
+            // Close the window or perform any other necessary actions to exit the process
+            window.close(); // This will close the current tab/window
+        });
+        const inputData = document.querySelector(".input-gmail");
+        const labelEmail = document.createElement("div");
+        labelEmail.className = "heading";
+        labelEmail.innerHTML = "Email";
+        inputData.appendChild(labelEmail);
+        const inputEmail = document.createElement("input");
+        inputEmail.type = "email";
+        inputEmail.placeholder = "Enter Email";
+        inputData.appendChild(inputEmail);
+        const buttonEmail = document.createElement("button");
+        buttonEmail.type = "submit";
+        buttonEmail.textContent = "submit";
+        inputData.appendChild(buttonEmail);
+
+        const inputPass = document.querySelector(".input-password");
+        const labelPass = document.createElement("div");
+        labelPass.className = "heading";
+        labelPass.innerHTML = "Password";
+        inputPass.appendChild(labelPass);
+        const inputPassword = document.createElement("input");
+        inputPassword.type = "password";
+        inputPassword.placeholder = "Enter Email";
+        inputPass.appendChild(inputPassword);
+        const buttonPassword = document.createElement("button");
+        buttonPassword.type = "submit";
+        buttonPassword.textContent = "submit";
+        inputPass.appendChild(buttonPassword);
+
+        //////////////////////
+        const inputVpn = document.querySelector(".vpn-username");
+        const labelVpnUsername = document.createElement("div");
+        labelVpnUsername.className = "heading";
+        labelVpnUsername.innerHTML = "Vpn Username";
+        inputVpn.appendChild(labelVpnUsername);
+        const inputVpnUserName = document.createElement("input");
+        inputVpnUserName.type = "username";
+        inputVpnUserName.placeholder = "Enter username";
+        inputVpn.appendChild(inputVpnUserName);
+        const buttonVpnUserName = document.createElement("button");
+        buttonVpnUserName.type = "submit";
+        buttonVpnUserName.textContent = "submit";
+        inputVpn.appendChild(buttonVpnUserName);
+
+        const inputVpnPass = document.querySelector(".vpn-username");
+        const labelVpnPassword = document.createElement("div");
+        labelVpnPassword.className = "heading";
+        labelVpnPassword.innerHTML = "Vpn Password";
+        inputVpnPass.appendChild(labelVpnPassword);
+        const inputVpnPassword = document.createElement("input");
+        inputVpnPassword.type = "password";
+        inputVpnPassword.placeholder = "Enter Password";
+        inputVpnPass.appendChild(inputVpnPassword);
+        const buttonVpnPassword = document.createElement("button");
+        buttonVpnPassword.type = "submit";
+        buttonVpnPassword.textContent = "submit";
+        inputVpnPass.appendChild(buttonVpnPassword);
+    </script>
+</body>
+
+</html>
